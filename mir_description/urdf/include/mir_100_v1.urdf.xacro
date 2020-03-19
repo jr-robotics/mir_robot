@@ -153,7 +153,7 @@
         </geometry>
         <xacro:insert_block name="material_white" />
       </visual>
-      <collision>
+      <collision name="base_collision">
         <origin xyz="${mir_100_act_wheel_dx} 0 0" rpy="0 0 0" />
         <geometry>
           <mesh filename="package://mir_description/meshes/collision/mir_100_base.stl" />
@@ -162,7 +162,17 @@
     </link>
     <gazebo reference="${prefix}base_link">
       <material>Gazebo/White</material>
-    </gazebo>
+      <!-- Virtual Contact Sensor -->
+      <sensor name='base_contact_sensor' type='contact'>
+         <contact>
+             <collision>base_footprint_fixed_joint_lump__base_collision_collision</collision>
+         </contact>
+         <plugin name="my_plugin" filename="libgazebo_ros_bumper.so">
+            <bumperTopicName>mir_collision</bumperTopicName>
+            <frameName>base_link</frameName>
+         </plugin>
+      </sensor>
+   </gazebo>
 
     <!-- IMU -->
     <joint name="${prefix}base_link_to_imu_joint" type="fixed">
