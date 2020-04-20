@@ -2,6 +2,7 @@
 <launch>
   <arg name="gui" default="true" />
   <arg name="world_name" default="worlds/empty.world"/> <!-- Note: the world_name is with respect to GAZEBO_RESOURCE_PATH environmental variable, but can also be an absolute path -->
+  <arg name="teleop"    default="true"/>
 
   <arg name="robot_x"   default="0.0" />
   <arg name="robot_y"   default="0.0" />
@@ -14,7 +15,7 @@
 
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
       <arg name="world_name" value="$(arg world_name)"/>
-      <arg name="paused" value="true" />
+      <arg name="paused" value="false" />
       <arg name="gui" value="$(arg gui)" />
     </include>
   </group>
@@ -30,5 +31,6 @@
     <arg name="robot_x"   value="$(arg robot_x)" />
     <arg name="robot_y"   value="$(arg robot_y)" />
     <arg name="robot_yaw" value="$(arg robot_yaw)" />
+    <arg name="teleop" value="$(arg teleop)" />
   </include>
 </launch>
