@@ -2,6 +2,24 @@
 Changelog for package mir_msgs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.1.1 (2021-02-11)
+------------------
+* Contributors: Martin Günther
+
+1.1.0 (2020-06-30)
+------------------
+* Initial release into noetic
+* Contributors: Martin Günther
+
+1.0.6 (2020-06-30)
+------------------
+* Fix some catkin_lint warnings
+* Set cmake_policy CMP0048 to fix warning
+* Contributors: Martin Günther
+
+1.0.5 (2020-05-01)
+------------------
+
 1.0.4 (2019-05-06)
 ------------------
 * Update mir_msgs and mir_actions to MiR 2.3.1

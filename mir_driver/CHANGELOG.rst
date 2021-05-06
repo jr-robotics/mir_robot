@@ -2,6 +2,39 @@
 Changelog for package mir_driver
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.1.1 (2021-02-11)
+------------------
+* Fix subscribing twice to same topic (TF etc)
+  There was a flaw in the subscriber logic that caused the mir_bridge to
+  subscribe multiple times to the same topic from the MiR, especially for
+  latched topics. This can be seen by repeated lines in the output:
+  starting to stream messages on topic 'tf'
+  starting to stream messages on topic 'tf'
+  starting to stream messages on topic 'tf'
+  Probably related to `#64 <https://github.com/dfki-ric/mir_robot/issues/64>`_.
+* Contributors: Martin Günther
+
+1.1.0 (2020-06-30)
+------------------
+* Initial release into noetic
+* Adapt to changes in websocket-client >= 0.49
+  Ubuntu 16.04 has python-websocket  0.18
+  Ubuntu 20.04 has python3-websocket 0.53
+* Update scripts to Python3 (Noetic)
+* Contributors: Martin Günther
+
+1.0.6 (2020-06-30)
+------------------
+* Set cmake_policy CMP0048 to fix warning
+* Contributors: Martin Günther
+
+1.0.5 (2020-05-01)
+------------------
+* Add optional prefix parameter to fake_mir_joint_publisher (`#47 <https://github.com/dfki-ric/mir_robot/issues/47>`_)
+* tf_remove_child_frames: Don't publish empty TFs
+* Add sdc21x0 package, MC/currents topic
+* Contributors: Martin Günther, Nils Niemann
+
 1.0.4 (2019-05-06)
 ------------------
 * Remove garbage file

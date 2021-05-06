@@ -1,4 +1,5 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.5.1)
+cmake_policy(SET CMP0048 NEW)
 project(mir_navigation)
 
 find_package(catkin REQUIRED COMPONENTS
@@ -20,6 +21,7 @@ catkin_package()
 # Mark executable scripts (Python etc.) for installation
 # in contrast to setup.py, you can choose the destination
 install(PROGRAMS
+  mprim/genmprim_unicycle_highcost_5cm.py
   nodes/acc_finder.py
   nodes/min_max_finder.py
   scripts/plot_mprim.py

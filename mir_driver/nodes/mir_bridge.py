@@ -1,9 +1,9 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import rospy
 
 import copy
 import sys
-from collections import Iterable
+from collections.abc import Iterable
 
 from mir_driver import rosbridge
 from rospy_message_converter import message_converter
@@ -55,7 +55,7 @@ def _prepend_tf_prefix_dict_filter(msg_dict):
     #filtered_msg_dict = copy.deepcopy(msg_dict)
     if not isinstance(msg_dict, dict):   # can happen during recursion
         return
-    for (key, value) in msg_dict.iteritems():
+    for (key, value) in msg_dict.items():
         if key == 'header':
             try:
                 # prepend frame_id
@@ -81,7 +81,7 @@ def _remove_tf_prefix_dict_filter(msg_dict):
     #filtered_msg_dict = copy.deepcopy(msg_dict)
     if not isinstance(msg_dict, dict):   # can happen during recursion
         return
-    for (key, value) in msg_dict.iteritems():
+    for (key, value) in msg_dict.items():
         if key == 'header':
             try:
                 # remove frame_id
@@ -234,14 +234,16 @@ class PublisherWrapper(rospy.SubscribeListener):
 
 
     def peer_subscribe(self, topic_name, topic_publish, peer_publish):
-        if (self.pub.get_num_connections() == 1 and not self.connected) or self.topic_config.latch:
+        if not self.connected:
+            self.connected = True
             rospy.loginfo("[%s] starting to stream messages on topic '%s'", rospy.get_name(), self.topic_config.topic)
             self.robot.subscribe(topic=('/' + self.topic_config.topic), callback=self.callback)
 
     def peer_unsubscribe(self, topic_name, num_peers):
         pass
 ## doesn't work: once ubsubscribed, robot doesn't let us subscribe again
-#         if self.pub.get_num_connections() == 0:
+#         if self.connected and self.pub.get_num_connections() == 0 and not self.topic_config.latch:
+#             self.connected = False
 #             rospy.loginfo("[%s] stopping to stream messages on topic '%s'", rospy.get_name(), self.topic_config.topic)
 #             self.robot.unsubscribe(topic=('/' + self.topic_config.topic))
 
@@ -331,15 +333,15 @@ class MiR100Bridge(object):
 
             topics.append([topic_name, topic_type, has_publishers, has_subscribers])
 
-        print 'Publishers:'
+        print('Publishers:')
         for (topic_name, topic_type, has_publishers, has_subscribers) in topics:
             if has_publishers:
-                print ' * %s [%s]' % (topic_name, topic_type)
+                print((' * %s [%s]' % (topic_name, topic_type)))
 
-        print '\nSubscribers:'
+        print('\nSubscribers:')
         for (topic_name, topic_type, has_publishers, has_subscribers) in topics:
             if has_subscribers:
-                print ' * %s [%s]' % (topic_name, topic_type)
+                print((' * %s [%s]' % (topic_name, topic_type)))
 
         return topics
 
